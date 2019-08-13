@@ -4,8 +4,9 @@ const port = 3000;
 
 // Services
 const { checkForParams } = require("./services/security");
+const { getImageDataFromUrl } = require("./services/image");
 
-app.get("/", (req: any, res: any, next: any) => {
+app.get("/", async (req: any, res: any, next: any) => {
 
     const { height, width, image }: { height: string, width: string, image: string } = req.query;
 
@@ -14,10 +15,10 @@ app.get("/", (req: any, res: any, next: any) => {
         checkForParams({height, width, image});
 
         // Get the image data from the url
-
-
+        const imageData: any = await getImageDataFromUrl(image);
+        console.log(imageData)
         // Resize the image data and return it
-        
+
         res.json({ height, width, image });
     } catch (err) {
         next(err);
