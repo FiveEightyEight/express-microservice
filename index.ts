@@ -20,7 +20,7 @@ app.get("/", async (req: any, res: any, next: any) => {
         // Resize the image data and return it
         const resizedImage = await resizeImageData(imageData, parseInt(height), parseInt(width));
 
-        res.json(resizedImage);
+        res.type("png").end(resizedImage);
     } catch (err) {
         next(err);
     };
