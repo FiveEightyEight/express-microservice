@@ -10,6 +10,6 @@ exports.getImageDataFromUrl = async (url: string) => {
     return response.data;
 };
 
-exports.resizeImageData = async (imageData: ArrayBufferLike, height: string, width: string) => {
+exports.resizeImageData = async (imageData: ArrayBufferLike, height: number, width: number) => {
     return await sharp(imageData).resize(height, width).png().toBuffer();
 };
