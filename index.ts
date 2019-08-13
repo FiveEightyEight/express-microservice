@@ -2,12 +2,23 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-app.get("/", (req: any, res: any, next: any) => [
+app.get("/", (req: any, res: any, next: any) => {
 
-]);
+    const { height, width, image }: {height: string, width: string, image: string}  = req.query;
 
-app.use( (req: any, res: any, next: any) => {
-// error handler
+    try {
+        res.json({height, width, image});
+    } catch (err) {
+        next(err);
+    };
+});
+
+app.use((err: any, req: any, res: any) => {
+    // error handler
+    res.status(500).json({
+        success: false,
+        message: err.message
+    });
 });
 
 app.listen(port, () => {
